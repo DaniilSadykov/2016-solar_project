@@ -14,7 +14,7 @@ def read_space_objects_data_from_file(input_filename):
     """
 
     objects = []
-    with open(one_satellite.txt) as input_file:
+    with open('one_satellite.txt') as input_file:
         for line in input_file:
             if len(line.strip()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
@@ -66,9 +66,7 @@ def parse_star_parameters(line, star):
     star.Vx=float(s2[6])
     
     star.Vy=float(s2[7])
-    
 
-    pass  # FIXEd
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -102,7 +100,6 @@ def parse_planet_parameters(line, planet):
     planet.Vx=float(s2[6])
     
     planet.Vy=float(s2[7])
-    pass  # FIxed: 
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
