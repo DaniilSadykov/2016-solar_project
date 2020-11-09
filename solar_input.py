@@ -24,7 +24,7 @@ def read_space_objects_data_from_file(input_filename):
                 parse_star_parameters(line, star)
                 objects.append(star)
             if object_type == "planet":  # FIXME: do the same for planet
-                star = Star()
+                star = Planet()
                 parse_star_parameters(line, planet)
                 objects.append(planet)
             else:
@@ -53,11 +53,11 @@ def parse_star_parameters(line, star):
     
     s2=s1.split(' ')
     
-    R=float(s2[1])
+    star.R=float(s2[1])
     
-    color=s2[2]
+    star.color=s2[2]
     
-    m=float(s2[3])
+    star.m=float(s2[3])
 
     star.x=float(s2[4])
     
@@ -89,11 +89,11 @@ def parse_planet_parameters(line, planet):
     
     s2=s1.split(' ')
     
-    R=float(s2[1])
+    planet.R=float(s2[1])
     
-    color=s2[2]
+    planet.color=s2[2]
     
-    m=float(s2[3])
+    planet.m=float(s2[3])
 
     planet.x=float(s2[4])
     
