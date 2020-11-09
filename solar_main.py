@@ -145,6 +145,8 @@ def main():
     time_label = tkinter.Label(frame, textvariable=displayed_time, width=30)
     time_label.pack(side=tkinter.RIGHT)
 
+    space.create_oval(600 - 7, 400-7,
+                      600 + 7, 400+7, fill='orange')
     root.mainloop()
     print('Modelling finished!')
 

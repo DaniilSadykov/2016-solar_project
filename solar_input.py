@@ -14,7 +14,7 @@ def read_space_objects_data_from_file(input_filename):
     """
 
     objects = []
-    with open('one_satellite.txt') as input_file:
+    with open('solar_system.txt') as input_file:
         for line in input_file:
             if len(line.strip()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
