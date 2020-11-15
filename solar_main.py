@@ -6,9 +6,12 @@ from tkinter.filedialog import *
 from solar_vis import *
 from solar_model import *
 from solar_input import *
+from Graphs import *
 
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
+
+in_filename = ""
 
 physical_time = 0
 """Физическое время от начала расчёта.
@@ -25,6 +28,9 @@ time_step = None
 space_objects = []
 """Список космических объектов."""
 
+clear_file = True
+"""Флаг очистки файла stats.txt перед новой записью
+Тип: bool"""
 
 def execution():
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
@@ -34,11 +40,19 @@ def execution():
     """
     global physical_time
     global displayed_time
+    global clear_file
     recalculate_space_objects_positions(space_objects, time_step.get())
     for body in space_objects:
         update_object_position(space, body)
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
+
+    if len(in_filename) >= 17 and in_filename[len(in_filename) - 17: len(in_filename)] == "one_satellite.txt":
+        if clear_file:
+            file = open("stats.txt", 'w')
+            file.close()
+            clear_file = False
+        save_stats_to_file("stats.txt", space_objects[1], physical_time)
 
     if perform_execution:
         space.after(101 - int(time_speed.get()), execution)
@@ -75,6 +89,7 @@ def open_file_dialog():
     """
     global space_objects
     global perform_execution
+    global in_filename
     perform_execution = False
     for obj in space_objects:
         space.delete(obj.image)  # удаление старых изображений планет
@@ -145,9 +160,11 @@ def main():
     time_label = tkinter.Label(frame, textvariable=displayed_time, width=30)
     time_label.pack(side=tkinter.RIGHT)
 
+
     root.mainloop()
     print('Modelling finished!')
 
+    graphs("stats.txt")
 
 if __name__ == "__main__":
     main()

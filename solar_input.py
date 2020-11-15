@@ -117,7 +117,17 @@ def write_space_objects_data_to_file(output_filename, space_objects):
             print(obj.type, obj.R, obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
 
 
-# FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
+def save_stats_to_file(output_filename, object, t):
+    """
+    Сохраняет статистику для выведения графиков о движении спутника в файл.
+    Строки имеют следующий формат:
+    <время> <расстояние до Солнца> <модуль скорости>
+    """
+    with open(output_filename, 'a') as out_file:
+        distance_from_sun = (object.x**2 + object.y**2) ** 0.5
+        absolute_velocity = (object.Vx**2 + object.Vy**2) ** 0.5
+        print(t, distance_from_sun, absolute_velocity, file=out_file)
+
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
