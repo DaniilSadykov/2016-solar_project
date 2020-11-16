@@ -19,11 +19,11 @@ def read_space_objects_data_from_file(input_filename):
             if len(line.strip()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
             object_type = line.split()[0].lower()
-            if object_type == "star":  # FIXED: did the same for planet
+            if object_type == "star":
                 star = Star()
                 parse_star_parameters(line, star)
                 objects.append(star)
-            elif object_type == "planet":  # FIXED: did the same for planet
+            elif object_type == "planet":
                 planet = Planet()
                 parse_planet_parameters(line, planet)
                 objects.append(planet)
@@ -48,23 +48,23 @@ def parse_star_parameters(line, star):
     **star** — объект звезды.
     """
 
-    s1 = line.strip()
+    s = line.strip()
 
-    s2 = s1.split(' ')
+    s = s.split(' ')
 
-    star.R = float(s2[1])
+    star.R = float(s[1])
 
-    star.color = s2[2]
+    star.color = s[2]
 
-    star.m = float(s2[3])
+    star.m = float(s[3])
 
-    star.x = float(s2[4])
+    star.x = float(s[4])
 
-    star.y = float(s2[5])
+    star.y = float(s[5])
 
-    star.Vx = float(s2[6])
+    star.Vx = float(s[6])
 
-    star.Vy = float(s2[7])
+    star.Vy = float(s[7])
 
 
 def parse_planet_parameters(line, planet):
@@ -82,23 +82,23 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    s1 = line.strip()
+    s = line.strip()
 
-    s2 = s1.split(' ')
+    s = s.split(' ')
 
-    planet.R = float(s2[1])
+    planet.R = float(s[1])
 
-    planet.color = s2[2]
+    planet.color = s[2]
 
-    planet.m = float(s2[3])
+    planet.m = float(s[3])
 
-    planet.x = float(s2[4])
+    planet.x = float(s[4])
 
-    planet.y = float(s2[5])
+    planet.y = float(s[5])
 
-    planet.Vx = float(s2[6])
+    planet.Vx = float(s[6])
 
-    planet.Vy = float(s2[7])
+    planet.Vy = float(s[7])
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -121,7 +121,7 @@ def save_stats_to_file(output_filename, object, t):
     """
     Сохраняет статистику для выведения графиков о движении спутника в файл.
     Строки имеют следующий формат:
-    <время> <расстояние до Солнца> <модуль скорости>
+    <физическое время> <расстояние до Солнца> <модуль скорости>
     """
     with open(output_filename, 'a') as out_file:
         distance_from_sun = (object.x**2 + object.y**2) ** 0.5

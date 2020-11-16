@@ -12,6 +12,8 @@ perform_execution = False
 """Флаг цикличности выполнения расчёта"""
 
 in_filename = ""
+"""Глобальная переменная, хранящая название файла, из которого считывается отображаемая программой модель
+В случае, если модель - one_satellite, рисует графики"""
 
 physical_time = 0
 """Физическое время от начала расчёта.
@@ -32,6 +34,7 @@ clear_file = True
 """Флаг очистки файла stats.txt перед новой записью
 Тип: bool"""
 
+
 def execution():
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
     а также обновляя их положение на экране.
@@ -47,6 +50,7 @@ def execution():
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
 
+    # Условие рисования графиков - отображаемая модель - one_satellite.txt
     if len(in_filename) >= 17 and in_filename[len(in_filename) - 17: len(in_filename)] == "one_satellite.txt":
         if clear_file:
             file = open("stats.txt", 'w')
@@ -160,11 +164,14 @@ def main():
     time_label = tkinter.Label(frame, textvariable=displayed_time, width=30)
     time_label.pack(side=tkinter.RIGHT)
 
-
     root.mainloop()
     print('Modelling finished!')
 
-    graphs("stats.txt")
+    # Рисование графика после закрытия окна tkinter, если модель - one_satellite.txt
+    # Останавливать можно в любой момент, график нарисует с начала, до момента закрытия окна
+    if len(in_filename) >= 17 and in_filename[len(in_filename) - 17: len(in_filename)] == "one_satellite.txt":
+        graphs("stats.txt")
+
 
 if __name__ == "__main__":
     main()
